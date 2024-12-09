@@ -78,6 +78,25 @@ def test_drop_duplicatesSubset(input_value):
     )
 
 
+# TODO: FIx this merge
+@pytest.mark.parametrize("input", [df_duplicate1])
+def test_increment_selected_rows(input):
+    return frame.assert_equal(
+        frame.increment_selected_rows(input, thing=1.0),
+        frame.new(
+            [
+                ["thing2", 7.0, 5, "init"],
+                ["thing2", 7.0, 5, "init"],
+                ["thing", 1.0, 5, "init"],
+                ["thing", 1.0, 7.0, "different"],
+                ["thing3", 3.0, 5, "blah"],
+                ["thing4", 7.0, 5, "init"],
+            ],
+            columns=["variable", "time", "value", "context"],
+        ),
+    )
+
+
 def test_replace_column__filtered():
     df = frame.new_schema(
         [
